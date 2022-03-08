@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BackEnd.Test
 {
-    internal class StatTester
+    [TestClass]
+    public class StatTester
     {
+        [TestMethod]
+        public void TestMethod1()
+        {
+        }
     }
 }

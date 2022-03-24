@@ -1,0 +1,25 @@
+﻿@page "/Map"
+@using BackEnd
+@model WebApplication.Pages.Shared.MapModel
+@{
+    Map m = new Map(8);
+}
+<div>
+    <div>
+        <h1>La carte</h1>
+    </div>
+    <div class="container">
+        @{
+            for(int width = 0; width < m.Size; width++)
+            {
+                @:<div class="row">
+              for(int height = 0; height < m.Size; height++)
+                {
+                    Tile t = m.Tiles[m.Size * height + width];
+                    @:<div class="col">@t.X;@t.Y</div>
+                }
+                @:</div>
+            }  
+        }
+    </div>
+</div>

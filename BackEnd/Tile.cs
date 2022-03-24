@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    internal class Tile
+    public class Tile
     {
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public bool IsOnMap(Map m)
+        {
+            return X < m.Size && Y < m.Size; 
+        }
+        public Tile(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
     }
 }

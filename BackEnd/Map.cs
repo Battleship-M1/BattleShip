@@ -19,11 +19,33 @@ namespace BackEnd
             {
                 for (int y = 0; y < Size; y++)
                 {
-                    t = new Tile();
+                    t = new Tile(x,y);
                     tilesGenerated.Add(t);
                 }
             }
             return tilesGenerated;
+        }
+
+        public Map(int size)
+        {
+            Size = size;
+            Tiles = GenerateMap();
+            ShowMap();
+        }
+
+        public void ShowMap()
+        {
+            Console.WriteLine("Showing Map :\n");
+            for(int width = 0; width < Size; width++)
+            {
+                for(int height = 0; height < Size; height++)
+                {
+                    Tile t = Tiles[width * Size + height];
+                    Console.Write($"{t.X};{t.Y}|");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("\nMap Showed\n");
         }
     }
 }

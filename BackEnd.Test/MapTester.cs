@@ -5,9 +5,7 @@ namespace BackEnd.Test
     [TestClass]
     public class MapTester
     {
-        Map map = new Map() { 
-            Size = 8
-        };
+        Map map = new Map(8);
 
         [TestMethod]
         public void Map_GenerateMap_WithSize8_ThenListCount64()

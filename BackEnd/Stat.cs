@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    internal class Stat
+    public class Stat
     {
     }
 }

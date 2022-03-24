@@ -6,7 +6,9 @@ namespace BackEnd
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Map m = new Map(8);
+            //Console.WriteLine("Hello World!");
+            Console.ReadLine();
         }
     }
 }

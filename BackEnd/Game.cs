@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    internal class Game
+    public class Game
     {
     }
 }

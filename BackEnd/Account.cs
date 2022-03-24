@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    public class IA
+    public class Account
     {
+        public string AccName { get; set; }
+        public string Login { get; }
+        public string Password { get; }
+
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BackEnd
 {
-    internal class Player
+    public class Player
     {
+        public Account Account { get; set; }
+        public string PlayerName { get; set; }
     }
 }

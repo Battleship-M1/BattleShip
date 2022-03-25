@@ -10,6 +10,11 @@ namespace BackEnd
         public Alignement Alignement { get; set; }
         public List<Tile> TilesUsed { get; set; }
 
+        public Boat(int length)
+        {
+            Length = length;
+        }
+
         public bool IsOnMap(Map m, Tile topLeft, int length, Alignement alignement)
         {
             if (m.Size < 1) { return false; }

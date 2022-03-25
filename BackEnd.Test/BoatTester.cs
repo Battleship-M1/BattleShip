@@ -5,21 +5,13 @@ namespace BackEnd.Test
     [TestClass]
     public class BoatTester
     {
-        Boat b = new Boat();
+        Boat b = new Boat(0);
         Map blankMap = new Map(0);
         Map okMap = new Map(8);
         int okLength = 2;
         int failLength = -1;
-        Tile okTile = new Tile()
-        {
-            X = 1,
-            Y = 1
-        };
-        Tile failTile = new Tile()
-        {
-            Y = -5,
-            X = 0,
-        };
+        Tile okTile = new Tile(1, 1);
+        Tile failTile = new Tile(-5, 0);
 
         [TestMethod]
         public void Boat_IsOnMap_WithBlankGrid_ThenFalse()

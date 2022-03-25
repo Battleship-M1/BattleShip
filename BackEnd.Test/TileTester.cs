@@ -5,7 +5,7 @@ namespace BackEnd.Test
     [TestClass]
     public class TileTester
     {
-        Tile testTile = new Tile();
+        Tile testTile = new Tile(4,5);
         Map blankMap = new Map(0);
         Map okMap = new Map(8);
 

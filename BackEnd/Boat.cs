@@ -32,9 +32,33 @@ namespace BackEnd
             return true;
         }
 
-        public List<Tile> GenerateTilesUsed(Tile topLeft, int length, Alignement alignement)
+        public List<Tile> GenerateTilesUsed(Tile topLeft, int length, Alignement alignement, Map m)
         {
-            throw new NotImplementedException();
+            List<Tile> tilesUsed = null;
+            if (!(topLeft.IsOnMap(m)))
+            {
+                return tilesUsed;
+            }
+            if(length < 1)
+            {
+                return tilesUsed;
+            }
+            tilesUsed = new List<Tile>();
+            tilesUsed.Add(topLeft);
+            for(int i = 0; i < length; i++)
+            {
+                if(alignement == Alignement.VERTICAL)
+                {
+                    Tile t = new Tile(topLeft.X, topLeft.Y+(i+1));
+                    tilesUsed.Add(t);
+                }
+                else
+                {
+                    Tile t = new Tile(topLeft.X + (i + 1), topLeft.Y);
+                    tilesUsed.Add(t);
+                }
+            }
+            return tilesUsed;
         }
     }
 }

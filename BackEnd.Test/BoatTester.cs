@@ -40,19 +40,19 @@ namespace BackEnd.Test
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithNegativeOrZeroLength_ThenNull()
         {
-            Assert.IsNull(b.GenerateTilesUsed(okTile, -1, Enum.Alignement.HORIZONTAL));
+            Assert.IsNull(b.GenerateTilesUsed(okTile, -1, Enum.Alignement.HORIZONTAL, okMap));
         }
 
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithNOKTopLeft_ThenNull()
         {
-            Assert.IsNull(b.GenerateTilesUsed(failTile, 2, Enum.Alignement.HORIZONTAL));
+            Assert.IsNull(b.GenerateTilesUsed(failTile, 2, Enum.Alignement.HORIZONTAL, okMap));
         }
 
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithOKTopLeft3Length_ThenListCount3()
         {
-            Assert.AreEqual(3, b.GenerateTilesUsed(okTile, 3, Enum.Alignement.HORIZONTAL));
+            Assert.AreEqual(4, b.GenerateTilesUsed(okTile, 3, Enum.Alignement.HORIZONTAL, okMap).Count);
         }
     }
 }

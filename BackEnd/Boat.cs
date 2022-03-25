@@ -45,7 +45,7 @@ namespace BackEnd
             }
             tilesUsed = new List<Tile>();
             tilesUsed.Add(topLeft);
-            for(int i = 0; i < length; i++)
+            for(int i = 1; i < length; i++)
             {
                 if(alignement == Alignement.VERTICAL)
                 {

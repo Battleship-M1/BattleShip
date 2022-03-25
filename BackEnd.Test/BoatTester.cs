@@ -52,7 +52,20 @@ namespace BackEnd.Test
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithOKTopLeft3Length_ThenListCount3()
         {
-            Assert.AreEqual(4, b.GenerateTilesUsed(okTile, 3, Enum.Alignement.HORIZONTAL, okMap).Count);
+            Assert.AreEqual(3, b.GenerateTilesUsed(okTile, 3, Enum.Alignement.HORIZONTAL, okMap).Count);
+        }
+
+        [TestMethod]
+        public void Boat_GenerateTilesUsed_CheckResult()
+        {
+            Assert.AreEqual(new Tile(3, 4).X, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].X);
+            Assert.AreEqual(new Tile(3, 4).Y, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].Y);
+
+            Assert.AreEqual(new Tile(4, 4).X, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].X);
+            Assert.AreEqual(new Tile(4, 4).Y, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].Y);
+
+            Assert.AreEqual(new Tile(5, 4).X, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].X);
+            Assert.AreEqual(new Tile(5, 4).Y, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].Y);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BackEnd
 
         public bool IsOnMap(Map m)
         {
-            return X < m.Size && Y < m.Size; 
+            return X < m.Size && Y < m.Size && X >= 0 && Y >= 0; 
         }
         public Tile(int x, int y)
         {

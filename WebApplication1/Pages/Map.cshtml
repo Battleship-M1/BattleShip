@@ -1,13 +1,12 @@
-﻿@page "/Map"
+﻿@page "/Maps"
 @using BackEnd
 @model WebApplication.Pages.Shared.MapModel
 @{
     Map m = new Map(8);
+    GameManager gm = new GameManager();
+    List<Boat> boats = gm.GenerateDefaultBoats();
 }
-<div>
-    <div>
-        <h1>La carte</h1>
-    </div>
+<div class="mapAndboat">
     <div class="container">
         @{
             for(int width = 0; width < m.Size; width++)
@@ -19,7 +18,26 @@
                     @:<div class="col">@t.X;@t.Y</div>
                 }
                 @:</div>
-            }  
+            }
         }
     </div>
+    <div class="boatContainer">
+        @{
+            int temp = 0;
+            foreach(Boat b in boats)
+            {
+                temp++;
+                @:<div class="boat">
+                for(int i = 0; i < b.Length; i++)
+                {
+                    string CSSclass = "boatPart boat"+temp;
+                    <div class="@CSSclass"></div>
+                }
+                @:</div>
+            }
+        }
+    </div>
+</div>
+<div class="spacer">
+    <a class="begin" href="./game">Commencer la partie</a>
 </div>

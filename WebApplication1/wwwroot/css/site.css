@@ -72,6 +72,67 @@ body {
 
 /* Custom */
 .row {
-    height: 80px;
-    max-width: 640px;
+    height: 60px;
+    max-width: 480px;
+}
+.col{
+    border: solid;
+    background-color: yellow;
+}
+.spacer {
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+.boat{
+    display: flex;
+    padding-bottom: 10px;
+}
+.boatPart {
+    border: solid;
+    width: 60px;
+    height: 60px;
+}
+.mapAndboat{
+    display: flex;
+}
+.boat1{
+    background-color: green;
+}
+.boat2{
+    background-color:grey;
+}
+.boat3{
+    background-color:aliceblue;
+}
+.boat4{
+    background-color:mediumpurple;
+}
+.boat5{
+    background-color:aquamarine;
+}
+.boat6{
+    background-color:orangered;
+}
+.begin {
+    display: flex;
+    justify-content: center;
+    border: solid;
+    /* width: auto; */
+    margin-left: 45%;
+    width: fit-content;
+    background-color: lightgreen;
+    padding: 5px;
+    border-radius: 15px;
+}
+main{
+    padding-top:10px;
+}
+header {
+    content-visibility: hidden;
+}
+footer {
+    content-visibility: hidden;
+}
+.boatContainer{
+    padding-top: 40px;
 }

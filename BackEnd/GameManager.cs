@@ -14,5 +14,17 @@ namespace BackEnd
         public List<Boat> BoatList {  get; set; }
         public bool IsMultiplayer { get; set; }
         public IA IA { get; set; }
+
+        public List<Boat> GenerateDefaultBoats()
+        {
+            List<Boat> boats = new List<Boat>();
+            boats.Add(new Boat(2));
+            boats.Add(new Boat(3));
+            boats.Add(new Boat(3));
+            boats.Add(new Boat(4));
+            boats.Add(new Boat(4));
+            boats.Add(new Boat(5));
+            return boats;
+        }
     }
 }

@@ -7,6 +7,8 @@ namespace BackEnd
         static void Main(string[] args)
         {
             Map m = new Map(8);
+            GameManager gm = new GameManager();
+            gm.GenerateDefaultBoats();
             //Console.WriteLine("Hello World!");
             Console.ReadLine();
         }

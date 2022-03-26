@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackEnd.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace BackEnd
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public State State { get; set; }
+        public bool HasBeenShoot { get; set; }
 
         public bool IsOnMap(Map m)
         {

@@ -67,5 +67,12 @@ namespace BackEnd.Test
             Assert.AreEqual(new Tile(5, 4).X, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].X);
             Assert.AreEqual(new Tile(5, 4).Y, b.GenerateTilesUsed(new Tile(3, 4), 3, Enum.Alignement.HORIZONTAL, okMap)[0].Y);
         }
+
+        [TestMethod]
+        public void Boat_AffectName_CheckResult()
+        {
+            b.Length = 2;
+            Assert.AreEqual("long2", b.AffectName());
+        }
     }
 }

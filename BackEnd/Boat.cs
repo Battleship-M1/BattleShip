@@ -9,10 +9,17 @@ namespace BackEnd
         public int Length { get; set; }
         public Alignement Alignement { get; set; }
         public List<Tile> TilesUsed { get; set; }
+        public string Name { get; set; }
 
         public Boat(int length)
         {
             Length = length;
+            Name = AffectName();
+        }
+
+        public string AffectName()
+        {
+            return new string("long"+Length);
         }
 
         public bool IsOnMap(Map m, Tile topLeft, int length, Alignement alignement)

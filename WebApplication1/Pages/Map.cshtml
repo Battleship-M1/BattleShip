@@ -1,5 +1,6 @@
 ﻿@page "/Maps"
-@using BackEnd
+@using BackEnd;
+@using BackEnd.Enum;
 @model WebApplication.Pages.Shared.MapModel
 @{
     Map m = new Map(8);
@@ -24,16 +25,24 @@
     <div class="boatContainer">
         @{
             int temp = 0;
-            foreach(Boat b in boats)
+            foreach(Boat boat in boats)
             {
                 temp++;
-                @:<div class="boat">
-                for(int i = 0; i < b.Length; i++)
-                {
-                    string CSSclass = "boatPart boat"+temp;
-                    <div class="@CSSclass"></div>
-                }
-                @:</div>
+                string id = boat.Name + "_" + temp;
+                <input type="radio" id=@id name="boatSelector" value="@boat.Name">
+                    @:<div class="boatInput">
+                    <label for=@id>@boat.Name</label>
+                    //@Html.DisplayFor(name => boat.Name);
+                    <label for="@id" class="boat">
+                    @{for(int i = 0; i < boat.Length; i++)
+                    {
+                        string CSSclass = "boatPart boat"+temp;
+                        <div class="@CSSclass"></div>
+                    }
+                    }
+                    </label>
+                    @:</div>
+                @:</input>
             }
         }
     </div>

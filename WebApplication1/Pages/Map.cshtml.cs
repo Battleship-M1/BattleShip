@@ -8,6 +8,7 @@ namespace WebApplication.Pages.Shared
     { 
         public void OnGet()
         {
+            
         }
     }
 }

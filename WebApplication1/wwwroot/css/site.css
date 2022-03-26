@@ -134,5 +134,16 @@ footer {
     content-visibility: hidden;
 }
 .boatContainer{
-    padding-top: 40px;
+    width: 300px;
+    padding-right: 320px;
+}
+input{
+    appearance: none;
+}
+:checked + .boatInput {
+    margin-left: 25px;
+    background-color: rgba(255,100,255,0.5);
+}
+.boatInput{
+    display: flex;
 }

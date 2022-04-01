@@ -6,6 +6,7 @@ namespace BackEnd.Test
     public class TileTester
     {
         Tile testTile = new Tile(4,5);
+        Tile outsideTile = new Tile(40,50);
         Map blankMap = new Map(0);
         Map okMap = new Map(8);
 
@@ -21,15 +22,23 @@ namespace BackEnd.Test
         }
         #endregion Tile_IsOnMap_WithBlankMap_ThenFalse()
 
-        #region Tile_IsOnMap_With8SizeMap_ThenTrue()
+        #region Tile_IsOnMap_InsideMap_ThenTrue()
         [TestMethod]
-        public void Tile_IsOnMap_With8SizeMap_ThenTrue()
+        public void Tile_IsOnMap_InsideMap_ThenTrue()
         {
             testTile.X = 4;
             testTile.Y = 5;
             Assert.IsTrue(testTile.IsOnMap(okMap));
         }
         #endregion Tile_IsOnMap_With8SizeMap_ThenTrue()
+
+        #region Tile_IsOnMap_OutsideMap_ThenFalse()
+        [TestMethod]
+        public void Tile_IsOnMap_OutsideMap_ThenFalse()
+        {
+            Assert.IsFalse(outsideTile.IsOnMap(okMap));
+        }
+        #endregion Tile_IsOnMap_OutsideMap_ThenFalse()
         #endregion IsOnMap(Map m)
     }
 }

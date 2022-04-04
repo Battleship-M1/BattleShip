@@ -12,5 +12,9 @@ namespace BackEnd.Enum
         RIGHT,
         BOTTOM,
         LEFT,
+        TOP_RIGHT,
+        TOP_LEFT,
+        BOTTOM_RIGHT,
+        BOTTOM_LEFT
     }
 }

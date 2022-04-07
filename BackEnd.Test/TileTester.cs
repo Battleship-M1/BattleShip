@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BackEnd.Enums;
 
 namespace BackEnd.Test
 {
@@ -40,5 +41,48 @@ namespace BackEnd.Test
         }
         #endregion Tile_IsOnMap_OutsideMap_ThenFalse()
         #endregion IsOnMap(Map m)
+
+        #region GetYWithDirection()
+        [TestMethod]
+        public void GetYWithDirection_TOP_thenYminOne()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.TOP), testTile.Y - 1);
+        }
+        [TestMethod]
+        public void GetYWithDirection_TOPLEFT_thenYminOne()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.TOP_LEFT), testTile.Y - 1);
+        }
+        [TestMethod]
+        public void GetYWithDirection_TOPRIGHT_thenYminOne()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.TOP_RIGHT), testTile.Y - 1);
+        }
+        [TestMethod]
+        public void GetYWithDirection_RIGHT_thenYunchanged()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.RIGHT), testTile.Y);
+        }
+        [TestMethod]
+        public void GetYWithDirection_LEFT_thenYunchanged()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.LEFT), testTile.Y);
+        }
+        [TestMethod]
+        public void GetYWithDirection_BOTTOM_thenYplusOne()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.BOTTOM), testTile.Y + 1);
+        }
+        [TestMethod]
+        public void GetYWithDirection_BOTTOMLEFT_thenYplusOne()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.BOTTOM_LEFT), testTile.Y + 1);
+        }
+        [TestMethod]
+        public void GetYWithDirection_BOTTOMRIGHT_thenYplusOne()
+        {
+            Assert.AreEqual(testTile.GetYWithDirection(Direction.BOTTOM_RIGHT), testTile.Y + 1);
+        }
+        #endregion GetYWithDirection()
     }
 }

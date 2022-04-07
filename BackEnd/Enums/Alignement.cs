@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BackEnd.Enum
+namespace BackEnd.Enums
 {
     public enum Alignement
     {
         VERTICAL,
-        HORIZONTAL
+        HORIZONTAL,
+        NONE
     }
 }

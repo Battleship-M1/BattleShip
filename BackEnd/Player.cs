@@ -8,7 +8,14 @@ namespace BackEnd
 {
     public class Player
     {
+
+        #region Properties
         public Account Account { get; set; }
         public string PlayerName { get; set; }
+        #endregion Properties
+
+        //----------------------------------------------------------------------------------//
+
+
     }
 }

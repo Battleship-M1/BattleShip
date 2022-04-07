@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using BackEnd.Enums;
 
 namespace BackEnd.Test
 {
@@ -66,21 +67,21 @@ namespace BackEnd.Test
         public void MoveBoat_TopLeftOutsideMap_ThenFalse()
         {
             Boat b = new Boat(2, new Tile(1, 0));
-            Assert.IsFalse(gm.MoveBoat(ref b, testMap8, Enum.Direction.TOP));
+            Assert.IsFalse(gm.MoveBoat(ref b, ref testMap8, Direction.TOP));
         }
 
         [TestMethod]
         public void MoveBoat_TopLeftInsideMap_ThenTrue()
         {
             Boat b = new Boat(2, new Tile(1, 1));
-            Assert.IsTrue(gm.MoveBoat(ref b, testMap8, Enum.Direction.TOP));
+            Assert.IsTrue(gm.MoveBoat(ref b, ref testMap8, Direction.TOP));
         }
 
         [TestMethod]
         public void MoveBoat_DirectionTOP_Ydecrease_CheckResult()
         {
             Boat b = new Boat(2, new Tile(1, 1));
-            gm.MoveBoat(ref b, testMap8, Enum.Direction.TOP);
+            gm.MoveBoat(ref b, ref testMap8, Direction.TOP);
             Assert.AreEqual(0, b.topLeft.Y);
             Assert.AreEqual(1, b.topLeft.X);
         }
@@ -89,7 +90,7 @@ namespace BackEnd.Test
         public void MoveBoat_DirectionBOT_Yincrease_CheckResult()
         {
             Boat b = new Boat(2, new Tile(1, 1));
-            gm.MoveBoat(ref b, testMap8, Enum.Direction.BOTTOM);
+            gm.MoveBoat(ref b, ref testMap8, Direction.BOTTOM);
             Assert.AreEqual(2, b.topLeft.Y);
             Assert.AreEqual(1, b.topLeft.X);
         }
@@ -98,7 +99,7 @@ namespace BackEnd.Test
         public void MoveBoat_DirectionLEFT_Xdecrease_CheckResult()
         {
             Boat b = new Boat(2, new Tile(1, 1));
-            gm.MoveBoat(ref b, testMap8, Enum.Direction.LEFT);
+            gm.MoveBoat(ref b, ref testMap8, Direction.LEFT);
             Assert.AreEqual(1, b.topLeft.Y);
             Assert.AreEqual(0, b.topLeft.X);
         }
@@ -107,7 +108,7 @@ namespace BackEnd.Test
         public void MoveBoat_DirectionRIGHT_Xincrease_CheckResult()
         {
             Boat b = new Boat(2, new Tile(1, 1));
-            gm.MoveBoat(ref b, testMap8, Enum.Direction.RIGHT);
+            gm.MoveBoat(ref b, ref testMap8, Direction.RIGHT);
             Assert.AreEqual(1, b.topLeft.Y);
             Assert.AreEqual(2, b.topLeft.X);
         }
@@ -118,34 +119,34 @@ namespace BackEnd.Test
         public void GetNewTileWithDirection_NullTile_ThenNull()
         {
             Tile t = null;
-            Assert.IsNull(gm.GetNewTileWithDirection(t, Enum.Direction.TOP));
+            Assert.IsNull(gm.GetNewTileWithDirection(t, Direction.TOP));
         }
 
         [TestMethod]
         public void GetNewTileWithDirection_DirTOP_ThenYDecrease()
         {
             Tile tileToSend = new Tile(3, 3);
-            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Enum.Direction.TOP).Y, 2);
+            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Direction.TOP).Y, 2);
         }
 
         [TestMethod]
         public void GetNewTileWithDirection_DirBOT_ThenYIncrease()
         {
             Tile tileToSend = new Tile(3, 3);
-            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Enum.Direction.BOTTOM).Y, 4);
+            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Direction.BOTTOM).Y, 4);
         }
         [TestMethod]
         public void GetNewTileWithDirection_DirLEFT_ThenXDecrease()
         {
             Tile tileToSend = new Tile(3, 3);
-            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Enum.Direction.LEFT).X, 2);
+            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Direction.LEFT).X, 2);
         }
 
         [TestMethod]
         public void GetNewTileWithDirection_DirRIGTH_ThenXIncrease()
         {
             Tile tileToSend = new Tile(3, 3);
-            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Enum.Direction.RIGHT).X, 4);
+            Assert.AreEqual(gm.GetNewTileWithDirection(tileToSend, Direction.RIGHT).X, 4);
         }
         #endregion GetNewTileWithDirection
     }

@@ -1,4 +1,4 @@
-﻿using BackEnd.Enum;
+﻿using BackEnd.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +9,17 @@ namespace BackEnd
 {
     public class GameManager
     {
+
+        #region Properties
         public List<Player> PlayerList { get; set; }
         public Game Game { get; set; }
         public List<Map> Maps { get; set; }
         public List<Boat> BoatList {  get; set; }
         public bool IsMultiplayer { get; set; }
         public IA IA { get; set; }
+        #endregion Properties
 
+        //----------------------------------------------------------------------------------//
 
         /// <summary>
         /// Generate a list of boat.
@@ -43,35 +47,104 @@ namespace BackEnd
         /// <param name="dir">Direction of the movement.</param>
         /// <returns>TRUE if boat is moved, else FALSE.</returns>
         #region + MoveBoat(Boat, Map, Direction) : boolean
-        public bool MoveBoat(ref Boat boat, Map m, Direction dir)
+        public bool MoveBoat(ref Boat boat, ref Map m, Direction dir)
         {
-            Tile topleft = boat.topLeft;
-            Tile newTopLeft = GetNewTileWithDirection(topleft, dir);
+            Boat saveBoat = boat;
+            Tile newTopLeft = GetNewTileWithDirection(boat.topLeft, dir);
+            boat.topLeft = newTopLeft;
 
             #region Verifications
-            if (newTopLeft == null || !newTopLeft.IsOnMap(m))
+            if (!(boat.topLeft.IsOnMap(m)))
             {
+                boat = saveBoat;
                 return false;
             }
             #endregion Verifications
 
-            List<Tile> newTilesUsed = boat.GenerateTilesUsed(newTopLeft, boat.Length, boat.Alignement);
+            SetTileState(m, State.IsEmpty, boat.TilesUsed);
+            SetTileState(m, State.IsEmpty, boat.NearBoatTiles);
+            boat.topLeft = newTopLeft;
+            boat.TilesUsed = boat.GenerateTilesUsed();
+            boat.NearBoatTiles = boat.GenerateNearBoatTiles();
 
             #region Verifications
-            foreach (Tile tile in newTilesUsed)
+            if (!(m.AreTilesAvailable(boat.TilesUsed)))
+            {
+                boat = saveBoat;
+                return false;
+            }
+            foreach (Tile tile in boat.TilesUsed)
             {
                 if (!(tile.IsOnMap(m)))
                 {
+                    boat = saveBoat;
+                    return false;
+                }
+            }
+            foreach (Tile tile in boat.NearBoatTiles)
+            {
+                if (!(tile.IsOnMap(m)))
+                {
+                    boat = saveBoat;
                     return false;
                 }
             }
             #endregion Verifications
 
-            boat.topLeft = newTopLeft;
-            boat.TilesUsed = newTilesUsed;
+            m.PlaceBoatOnMap(boat);
+
             return true;
         }
         #endregion + MoveBoat(Boat, Map, Direction) : boolean
+        #region + MoveBoat(Boat, Map, Tile) : boolean
+        public bool MoveBoat(ref Boat boat, ref Map m, Tile newTopLeft)
+        {
+            Boat saveBoat = boat;
+            boat.topLeft = newTopLeft;
+
+            #region Verifications
+            if (newTopLeft == null || !newTopLeft.IsOnMap(m))
+            {
+                boat = saveBoat;
+                return false;
+            }
+            #endregion Verifications
+
+            SetTileState(m, State.IsEmpty, boat.TilesUsed);
+            SetTileState(m, State.IsEmpty, boat.NearBoatTiles);
+            boat.topLeft = newTopLeft;
+            boat.TilesUsed = boat.GenerateTilesUsed();
+            boat.NearBoatTiles = boat.GenerateNearBoatTiles();
+
+            #region Verifications
+            if (!(m.AreTilesAvailable(boat.TilesUsed)))
+            {
+                boat = saveBoat;
+                return false;
+            }
+            foreach (Tile tile in boat.TilesUsed)
+            {
+                if (!(tile.IsOnMap(m)))
+                {
+                    boat = saveBoat;
+                    return false;
+                }
+            }
+            foreach (Tile tile in boat.NearBoatTiles)
+            {
+                if (!(tile.IsOnMap(m)))
+                {
+                    boat = saveBoat;
+                    return false;
+                }
+            }
+            #endregion Verifications
+
+            m.PlaceBoatOnMap(boat);
+
+            return true;
+        }
+        #endregion + MoveBoat(Boat, Map, Tile) : boolean
 
         /// <summary>
         /// Get tile with new X & Y.
@@ -109,11 +182,36 @@ namespace BackEnd
                 case Direction.LEFT:
                     newTile.X -= 1;
                     break;
+                case Direction.TOP_LEFT:
+                    newTile.X -= 1;
+                    newTile.Y -= 1;
+                    break;
+                case Direction.TOP_RIGHT:
+                    newTile.X += 1;
+                    newTile.Y -= 1;
+                    break;
+                case Direction.BOTTOM_LEFT:
+                    newTile.X -= 1;
+                    newTile.Y += 1;
+                    break;
+                case Direction.BOTTOM_RIGHT:
+                    newTile.X += 1;
+                    newTile.Y -= 1;
+                    break;
             }
+
             return newTile;
         }
         #endregion + GetNewTileWithDirection(Tile, Direction) : Tile
 
+        /// <summary>
+        /// DEBUG ONLY, Change tile's state of tile list and returns a map.
+        /// </summary>
+        /// <param name="m">Map to work with.</param>
+        /// <param name="stateWanted">State to place.</param>
+        /// <param name="tileToBeEmpty">Tiles affected by the state to place.</param>
+        /// <returns>New map with updated tiles state.</returns>
+        #region + SetTileState(Map,State,List<Tile>) : Map
         public Map SetTileState(Map m,State stateWanted, List<Tile> tileToBeEmpty)
         {
             Map newMap = m;
@@ -132,5 +230,28 @@ namespace BackEnd
 
             return newMap;
         }
+        #endregion + SetTileState(Map,State,List<Tile>) : Map
+
+        /// <summary>
+        /// Get the index of the tile in a list based on X and Y of wanted tile.
+        /// </summary>
+        /// <param name="X">X of wanted tile.</param>
+        /// <param name="Y">Y of wanted tile.</param>
+        /// <param name="tiles">The list of tile where we look for tile.</param>
+        /// <returns>INDEX in the list, ELSE -1.</returns>
+        #region STATIC + GetTileIndex(int,int,List<Tile>) : int
+        public static int GetTileIndex(int X, int Y, List<Tile> tiles)
+        {
+            foreach (Tile t in tiles)
+            {
+                if (X < 0 || Y < 0) { return -1; }
+                if (t.X == X && t.Y == Y)
+                {
+                    return tiles.IndexOf(t);
+                }
+            }
+            return -1;
+        }
+        #endregion STATIC + GetTileIndex(int,int,List<Tile>) : int
     }
 }

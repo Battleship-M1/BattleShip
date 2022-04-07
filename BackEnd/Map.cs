@@ -1,4 +1,4 @@
-﻿using BackEnd.Enum;
+﻿using BackEnd.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +9,14 @@ namespace BackEnd
 {
     public class Map
     {
+
+        #region Properties
         public int Size { get; set; }
         public List<Tile> Tiles { get; set; }
         public int BoatPlaced { get; set; }
+        #endregion Properties
 
-
-
-
+        //----------------------------------------------------------------------------------//
 
         #region Constructors
         public Map(int size)
@@ -27,10 +28,7 @@ namespace BackEnd
         }
         #endregion Constructors
 
-
-
-
-
+        //----------------------------------------------------------------------------------//
 
         /// <summary>
         /// Create a list of Tile based on map's size².
@@ -61,22 +59,49 @@ namespace BackEnd
         public void ShowMap()
         {
             Console.WriteLine("Showing Map :\n");
+            string toPrint = "";
+            State tileState = State.IsEmpty;
             for(int width = 0; width < Size; width++)
             {
                 for(int height = 0; height < Size; height++)
                 {
-                    Tile t = Tiles[width * Size + height];
-                    Console.Write($"{t.X};{t.Y}|");
+                    tileState = Tiles[GameManager.GetTileIndex(height,width,Tiles)].State;
+//                    Console.Write(height + height * width);
+                    switch (tileState)
+                    {
+                        case State.IsBoat:Console.BackgroundColor = ConsoleColor.Red;toPrint = "B";break;
+                        case State.IsNearBoat: Console.BackgroundColor = ConsoleColor.Blue;toPrint = "N";break;
+                        case State.IsEmpty: Console.BackgroundColor = ConsoleColor.White;toPrint = "E";break;
+                    }
+                    Console.Write($" {toPrint} ");
+                    Console.BackgroundColor = ConsoleColor.White;
                 }
-                Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine("");
             }
             Console.WriteLine("\nMap Showed\n");
         }
         #endregion + ShowMap() : void
 
-        public bool PlaceBoatOnMap(Boat boat)
+        public Map PlaceBoatOnMap(Boat boat)
         {
-            throw new NotImplementedException();
+            Map newMap = this;
+
+            if (AreTilesAvailable(boat.TilesUsed))
+            {
+                foreach(Tile t in boat.TilesUsed)
+                {
+                    int index = GameManager.GetTileIndex(t.X, t.Y, Tiles);
+                    if(index>-1) Tiles[index].State = State.IsBoat;
+                }
+                foreach(Tile t in boat.NearBoatTiles)
+                {
+                    int index = GameManager.GetTileIndex(t.X, t.Y, Tiles);
+                    if (index > -1) Tiles[index].State = State.IsNearBoat;
+                }
+            }
+
+            return newMap;
         }
 
         /// <summary>
@@ -84,10 +109,10 @@ namespace BackEnd
         /// </summary>
         /// <param name="boat">Boat's tiles to verify.</param>
         /// <returns>TRUE if all tiles are empty, ELSE return FALSE.</returns>
-        #region + AreBoatTilesUsedAvailable(Boat) : boolean
-        public bool AreBoatTilesUsedAvailable(Boat boat)
+        #region + AreTilesAvailable(List<Tile>) : boolean
+        public bool AreTilesAvailable(List<Tile> tiles)
         {
-            foreach(Tile boatTile in boat.TilesUsed)
+            foreach(Tile boatTile in tiles)
             {
                 if(!(boatTile.IsOnMap(this))) { return false; }
                 foreach(Tile mapTile in this.Tiles)
@@ -103,7 +128,7 @@ namespace BackEnd
             }
             return true;
         }
-        #endregion + AreBoatTilesUsedAvailable(Boat) : boolean
+        #endregion + AreTilesAvailable(List<Tile>) : boolean
 
         /// <summary>
         /// Returns the amount of tile in a specific state.
@@ -123,5 +148,7 @@ namespace BackEnd
             return amount;
         }
         #endregion + GetAmountOfTileInState(State) : int
+    
+        
     }
 }

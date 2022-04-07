@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BackEnd.Enums;
 
 namespace BackEnd.Test
 {
@@ -30,21 +31,21 @@ namespace BackEnd.Test
         [TestMethod]
         public void AreBoatTilesUsedAvailable_OnEmptyMap_ThenFalse()
         {
-            Assert.IsFalse(emptyMap.AreBoatTilesUsedAvailable(boat));
+            Assert.IsFalse(emptyMap.AreTilesAvailable(boat.TilesUsed));
         }
 
         [TestMethod]
         public void AreBoatTilesUsedAvailable_OnAvailableTiles_thenTrue()
         {
-            Assert.IsTrue(map.AreBoatTilesUsedAvailable(boat));
+            Assert.IsTrue(map.AreTilesAvailable(boat.TilesUsed));
         }
 
         [TestMethod]
         public void AreBoatTilesUsedAvailable_OnUsedTiles_thenFalse()
         {
             GameManager gm = new GameManager();
-            Map fullBoatMap = gm.SetTileState(map, Enum.State.IsBoat, map.Tiles);
-            Assert.IsFalse(fullBoatMap.AreBoatTilesUsedAvailable(boat));
+            Map fullBoatMap = gm.SetTileState(map, State.IsBoat, map.Tiles);
+            Assert.IsFalse(fullBoatMap.AreTilesAvailable(boat.TilesUsed));
         }
         #endregion AreBoatTilesUsedAvailable
 
@@ -52,13 +53,13 @@ namespace BackEnd.Test
         [TestMethod]
         public void GetAmountOfTileInState_NoTileInState_Then0()
         {
-            Assert.AreEqual(map.GetAmountOfTileInState(Enum.State.IsBoat), 0);
+            Assert.AreEqual(map.GetAmountOfTileInState(State.IsBoat), 0);
         }
 
         [TestMethod]
         public void GetAmountOfTileInState_AllTileInState_ThenMapSize()
         {
-            Assert.AreEqual(map.GetAmountOfTileInState(Enum.State.IsEmpty), map.Tiles.Count);
+            Assert.AreEqual(map.GetAmountOfTileInState(State.IsEmpty), map.Tiles.Count);
         }
 
         [TestMethod]
@@ -68,9 +69,9 @@ namespace BackEnd.Test
 
             for(int i = 0; i < RESULT_WANTED; i++)
             {
-                map.Tiles[i].State = Enum.State.IsBoat;
+                map.Tiles[i].State = State.IsBoat;
             }
-            Assert.AreEqual(map.GetAmountOfTileInState(Enum.State.IsBoat), RESULT_WANTED);
+            Assert.AreEqual(map.GetAmountOfTileInState(State.IsBoat), RESULT_WANTED);
         }
         #endregion GetAmountOfTileInState
     }

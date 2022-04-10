@@ -36,6 +36,8 @@ namespace BackEnd
 
         //----------------------------------------------------------------------------------//
 
+        // + public
+
         /// <summary>
         /// Applied default name for a boat : long<Length>.
         /// </summary>
@@ -156,52 +158,6 @@ namespace BackEnd
         #endregion + GenerateNearBoatTiles() ; List<Tile>
 
         /// <summary>
-        /// Apply the wanted alignement to the boat on the map.
-        /// </summary>
-        /// <param name="ali">Wanted alignement.</param>
-        /// <param name="m">Map to update</param>
-        /// <returns>Boat with updated TilesUsed and NearBoatTiles.</returns>
-        #region + ChangeAlignement(Alignement, ref Map) : Boat
-        public Boat ChangeAlignement(Alignement ali,ref Map m)
-        {
-            Boat newBoat = this;
-
-            newBoat.Alignement = ali;
-            newBoat.TilesUsed = GenerateTilesUsed();
-            newBoat.NearBoatTiles = GenerateNearBoatTiles();
-
-            #region Verifications
-            foreach(Tile t in TilesUsed)
-            {
-                if (!t.IsOnMap(m))
-                {
-                    return this;
-                }
-            }
-            foreach(Tile t in NearBoatTiles)
-            {
-                if (!t.IsOnMap(m))
-                {
-                    return this;
-                }
-            }
-            #endregion Verifications
-
-            GameManager gm = new GameManager();
-            //gm.SetTileState(m,);
-
-            return newBoat;
-        }
-        #endregion + ChangeAlignement(Alignement, ref Map) : Boat
-
-
-        // TODO
-        // Save state -> add boat before any change
-        // Change topLeft -> update tiles used, near tiles boat
-        // Change length -> update tiles used, near tiles boat
-        // Change alignement -> update tiles used, near tiles boat
-
-        /// <summary>
         /// Change properties and update linked properties.
         /// </summary>
         /// <param name="newLength">New length.</param>
@@ -212,8 +168,8 @@ namespace BackEnd
             Clone(this, WorkingBoat);
             WorkingBoat.Length = newLength;
             if (newLength == -1) { WorkingBoat.Length = this.Length; }
-            if((TryUpdateTileUsed() && TryUpdateNearBoatTiles())) 
-            { 
+            if ((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
+            {
                 BoatStates.Add(Clone(this, new Boat()));
                 Clone(WorkingBoat, this);
                 WorkingBoat = new Boat();
@@ -229,7 +185,7 @@ namespace BackEnd
             Clone(this, WorkingBoat);
             WorkingBoat.Alignement = newAlignement;
             if (newAlignement == Alignement.NONE) { WorkingBoat.Alignement = this.Alignement; }
-            if((TryUpdateTileUsed() && TryUpdateNearBoatTiles())) 
+            if ((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
             {
                 BoatStates.Add(this);
                 Clone(WorkingBoat, this);
@@ -246,7 +202,7 @@ namespace BackEnd
             Clone(this, WorkingBoat);
             WorkingBoat.topLeft = newTopLeft;
             if (newTopLeft == null) { WorkingBoat.topLeft = this.topLeft; }
-            if((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
+            if ((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
             {
                 BoatStates.Add(this);
                 Clone(WorkingBoat, this);
@@ -258,6 +214,32 @@ namespace BackEnd
         }
         #endregion + UpdateBoatProp(Tile) : Boolean
 
+        /// <summary>
+        /// Apply the last correct state on the current boat. 
+        /// </summary>
+        /// <returns>TRUE if success.</returns>
+        #region + ApplyLastState() : Boolean
+        public Boolean ApplyLastState()
+        {
+            try
+            {
+                Clone(BoatStates[BoatStates.Count - 1], this);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        #endregion + ApplyLastState() : Boolean
+
+        // - private
+
+        /// <summary>
+        /// Updates working boat tiles used.
+        /// </summary>
+        /// <returns>TRUE if success.</returns>
+        #region - TryUpdateTileUsed() : Boolean
         private Boolean TryUpdateTileUsed(){
             List<Tile> workingTileUsed = new List<Tile>();
             workingTileUsed.Add(WorkingBoat.topLeft);
@@ -277,8 +259,16 @@ namespace BackEnd
                 }
             }
             WorkingBoat.TilesUsed = workingTileUsed;
-            return WorkingBoat.TilesUsed == GenerateTilesUsed(WorkingBoat.topLeft, WorkingBoat.Length, WorkingBoat.Alignement);
+            // return r same list dans game manager
+            return GameManager.HaveListSameContent(WorkingBoat.TilesUsed, GenerateTilesUsed(WorkingBoat.topLeft, WorkingBoat.Length, WorkingBoat.Alignement));
         }
+        #endregion - TryUpdateTileUsed() : Boolean
+
+        /// <summary>
+        /// Updates working boat near tiles.
+        /// </summary>
+        /// <returns>TRUE if success.</returns>
+        #region - TryUpdateNearBoatTiles() : Boolean
         private Boolean TryUpdateNearBoatTiles() {
             List<Tile> workingNearBoatTiles = new List<Tile>();
             foreach(Tile tileUse in WorkingBoat.TilesUsed)
@@ -293,27 +283,12 @@ namespace BackEnd
                 }
             }
             WorkingBoat.NearBoatTiles = workingNearBoatTiles;
-            return WorkingBoat.NearBoatTiles == GenerateNearBoatTiles();
+            return GameManager.HaveListSameContent(WorkingBoat.NearBoatTiles, GenerateNearBoatTiles());
         }
-        public Boolean ApplyLastState()
-        {
-            try
-            {
-                Clone(BoatStates[BoatStates.Count - 1], this);
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-        }
-        public void Show()
-        {
-            Console.WriteLine($"Length:{Length}, tilesUsed:{TilesUsed.Count},tilesNear:{NearBoatTiles.Count},State:{BoatStates.Count}");
-        }
-        
+        #endregion - TryUpdateNearBoatTiles() : Boolean
+
         /// <summary>
-        /// Clone boat so RAM ref is differents.
+        /// Clone boat so RAM reference is different.
         /// </summary>
         /// <returns>Boat cloned.</returns>
         #region - Clone() : Boat
@@ -327,5 +302,19 @@ namespace BackEnd
             return to;
         }
         #endregion - Clone() : Boat
+
+        //----------------------------------------------------------------------------------/
+
+        // DEBUG ONLY
+
+        /// <summary>
+        /// Prints main information for debug.
+        /// </summary>
+        #region + Show() : void
+        public void Show()
+        {
+            Console.WriteLine($"Length:{Length}, tilesUsed:{TilesUsed.Count},tilesNear:{NearBoatTiles.Count},State:{BoatStates.Count}");
+        }
+        #endregion + Show() : void
     }
 }

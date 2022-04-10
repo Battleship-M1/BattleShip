@@ -253,5 +253,19 @@ namespace BackEnd
             return -1;
         }
         #endregion STATIC + GetTileIndex(int,int,List<Tile>) : int
+
+        public static Boolean HaveListSameContent(List<Tile> t1, List<Tile> t2)
+        {
+            foreach (Tile t1Tile in t1)
+            {
+                Tile t2Tile = t2[t1.IndexOf(t1Tile)];
+                if (!(t1Tile.X == t2Tile.X && t1Tile.Y == t2Tile.Y))
+                {
+                    // la génération des liste pour les nears tiles sont pas pareil 
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

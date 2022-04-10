@@ -18,6 +18,17 @@ namespace BackEnd.Test
         Tile okTile = new Tile(1, 1);
         Tile failTile = new Tile(-5, 0);
 
+        //----------------------------------------------------------------------------------//
+
+        #region AffectName
+        [TestMethod]
+        public void Boat_AffectName_CheckResult()
+        {
+            b.Length = 2;
+            Assert.AreEqual("long2", b.AffectName());
+        }
+        #endregion AffectName
+
         #region IsOnMap
         [TestMethod]
         public void Boat_IsOnMap_WithBlankGrid_ThenFalse()
@@ -89,16 +100,7 @@ namespace BackEnd.Test
             Assert.AreEqual(6, b.GenerateTilesUsed(new Tile(3, 4), 3, Alignement.VERTICAL)[2].Y);
         }
         #endregion GenerateTilesUsed
-
-        #region AffectName
-        [TestMethod]
-        public void Boat_AffectName_CheckResult()
-        {
-            b.Length = 2;
-            Assert.AreEqual("long2", b.AffectName());
-        }
-        #endregion AffectName
-
+        
         #region GenerateNearBoatTiles
         [TestMethod]
         public void GenerateNearBoatTiles_IfTilesUsedNull_ThenEmptyList()
@@ -136,19 +138,7 @@ namespace BackEnd.Test
         }
         #endregion GenerateNearBoatTiles
 
-        #region ChangeAlignement
-        [TestMethod]
-        public void ChangeAlignement_WithVertical_ThenHorizontal()
-        {
-            Assert.AreEqual(Alignement.HORIZONTAL, boat.ChangeAlignement(Alignement.HORIZONTAL, ref okMap).Alignement);
-        }
-
-        [TestMethod]
-        public void ChangeAlignement_WithHorizontal_ThenVertical()
-        {
-            Assert.AreEqual(Alignement.VERTICAL, boat.ChangeAlignement(Alignement.VERTICAL, ref okMap).Alignement);
-        }
-        #endregion ChangeAlignement
+        //----------------------------------------------------------------------------------//
 
         #region Private Methods
 
@@ -179,6 +169,25 @@ namespace BackEnd.Test
             }
         }
         #endregion Clone
+
+        #region UpdateBoatProp()
+
+        [TestMethod]
+        public void UpdateBoatProp_IncreaseLength_ThenTrue()
+        {
+            Assert.IsTrue(boat.UpdateBoatProp(boat.Length++));
+        }
+        [TestMethod]
+        public void UpdateBoatProp_DecreaseLength_ThenTrue()
+        {
+            Assert.IsTrue(boat.UpdateBoatProp(boat.Length--));
+        }
+        [TestMethod]
+        public void UpdateBoatProp_SameLength_ThenTrue()
+        {
+            Assert.IsTrue(boat.UpdateBoatProp(boat.Length));
+        }
+        #endregion UpdateBoatProp(int)
 
         // UpdateBoatProp(int)
         // UpdateBoatProp(Alignement)

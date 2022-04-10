@@ -6,7 +6,7 @@ namespace BackEnd
     {
         static void Main(string[] args)
         {
-            Boat bo = new Boat(3, new Tile(0, 0));
+            Boat bo = new Boat(1, new Tile(2, 2));
             bo.Show();
             if (bo.UpdateBoatProp(2))
             {
@@ -26,13 +26,13 @@ namespace BackEnd
             GameManager gm = new GameManager();
             Boat boat = new Boat(3, new Tile(2, 4));
             Boat boat2 = new Boat(2, new Tile(0, 0));
-            boat2 = boat2.ChangeAlignement(Enums.Alignement.VERTICAL, ref m);
+            //boat2 = boat2.ChangeAlignement(Enums.Alignement.VERTICAL, ref m);
             m.PlaceBoatOnMap(boat);
             m.PlaceBoatOnMap(boat2);
             m.ShowMap();
             gm.MoveBoat(ref boat, ref m, Enums.Direction.RIGHT);
             m.ShowMap();
-            boat = boat.ChangeAlignement(Enums.Alignement.VERTICAL, ref m);
+            //boat = boat.ChangeAlignement(Enums.Alignement.VERTICAL, ref m);
             gm.MoveBoat(ref boat, ref m, Enums.Direction.RIGHT);
             m.ShowMap();
             Console.ReadLine();

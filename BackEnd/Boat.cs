@@ -28,7 +28,7 @@ namespace BackEnd
             Alignement = Alignement.HORIZONTAL;
             Name = AffectName();
             TilesUsed = GenerateTilesUsed(topleft, length,Alignement);
-            NearBoatTiles = GenerateNearBoatTiles();
+            NearBoatTiles = GenerateNearBoatTiles(this);
             WorkingBoat = new Boat();
         }
         private Boat() { }
@@ -133,16 +133,18 @@ namespace BackEnd
         /// </summary>
         /// <returns>Returns a LIST of TILE. If the boat is not Ok, the list is EMPTY</returns>
         #region + GenerateNearBoatTiles() ; List<Tile>
-        public List<Tile> GenerateNearBoatTiles()
+        public List<Tile> GenerateNearBoatTiles(Boat b = null)
         {
+            Boat functionBoat = b;
+            if(b == null) { b = this; }
             List<Tile> tiles = new List<Tile>();
 
-            if(TilesUsed == null)
+            if(b.TilesUsed == null)
             {
                 return tiles;
             }
 
-            foreach(Tile t in TilesUsed)
+            foreach(Tile t in b.TilesUsed)
             {
                 foreach(Tile tilesNear in t.GetNearTiles())
                 {
@@ -167,7 +169,7 @@ namespace BackEnd
         {
             Clone(this, WorkingBoat);
             WorkingBoat.Length = newLength;
-            if (newLength >= -1) { WorkingBoat.Length = this.Length; }
+            if (newLength <= -1) { WorkingBoat.Length = this.Length; }
             if ((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
             {
                 BoatStates.Add(Clone(this, new Boat()));
@@ -260,7 +262,9 @@ namespace BackEnd
             }
             WorkingBoat.TilesUsed = workingTileUsed;
             // return r same list dans game manager
-            return GameManager.HaveListSameContent(WorkingBoat.TilesUsed, GenerateTilesUsed(WorkingBoat.topLeft, WorkingBoat.Length, WorkingBoat.Alignement));
+            var res = GameManager.HaveListSameContent(WorkingBoat.TilesUsed, GenerateTilesUsed(WorkingBoat.topLeft, WorkingBoat.Length, WorkingBoat.Alignement));
+            Console.WriteLine($"GenTileUsed : {res}");
+            return res;
         }
         #endregion - TryUpdateTileUsed() : Boolean
 
@@ -283,7 +287,7 @@ namespace BackEnd
                 }
             }
             WorkingBoat.NearBoatTiles = workingNearBoatTiles;
-            return GameManager.HaveListSameContent(WorkingBoat.NearBoatTiles, GenerateNearBoatTiles());
+            return true;
         }
         #endregion - TryUpdateNearBoatTiles() : Boolean
 
@@ -313,7 +317,7 @@ namespace BackEnd
         #region + Show() : void
         public void Show()
         {
-            Console.WriteLine($"Length:{Length}, tilesUsed:{TilesUsed.Count},tilesNear:{NearBoatTiles.Count},State:{BoatStates.Count}");
+            Console.WriteLine($"Length:{Length}, tilesUsed:{TilesUsed.Count},tilesNear:{NearBoatTiles.Count},State:{BoatStates.Count},TopLeft:{topLeft.Informations()}");
         }
         #endregion + Show() : void
     }

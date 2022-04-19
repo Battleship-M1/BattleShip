@@ -138,6 +138,17 @@ namespace BackEnd.Test
         }
         #endregion GenerateNearBoatTiles
 
+        #region ApplyLastChange()
+        [TestMethod]
+        public void ApplyLastChange_ThenTrue()
+        {
+            int originLength = boat.Length;
+            boat.UpdateBoatProp(boat.Length + 1);
+            Assert.AreEqual(boat.ApplyLastState(), true);
+            Assert.AreEqual(originLength, boat.Length);
+        }
+        #endregion ApplyLastChange()
+
         //----------------------------------------------------------------------------------//
 
         #region Private Methods
@@ -192,7 +203,9 @@ namespace BackEnd.Test
         public void UpdateBoatProp_NewLength_ThenTrueAndLengthModified()
         {
             int originLength = boat.Length;
-            Assert.IsTrue(boat.UpdateBoatProp(boat.Length + 1));
+            boat.Show();
+            boat.UpdateBoatProp(originLength + 1);
+            Assert.IsTrue(boat.UpdateBoatProp(originLength+1));
             Assert.AreNotEqual(originLength, boat.Length);
         }
 
@@ -208,6 +221,7 @@ namespace BackEnd.Test
         public void UpdateBoatProp_NewTopLeft_ThenTrueAndTopLeftModified()
         {
             Tile originTopLeft = boat.topLeft;
+            boat.Show();
             Assert.IsTrue(boat.UpdateBoatProp(new Tile(originTopLeft.X, originTopLeft.Y + 1)));
             Assert.AreNotEqual(originTopLeft.Y, boat.topLeft.Y);
         }
@@ -241,10 +255,11 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_OnChange_UpdateTilesList()
         {
-            Boat originBoat = boat;
+            var originTilesUsed = boat.TilesUsed;
+            var originNearTile = boat.NearBoatTiles;
             boat.UpdateBoatProp(boat.Length + 1);
-            Assert.AreNotEqual(boat.TilesUsed.Count, originBoat.TilesUsed.Count);
-            Assert.AreNotEqual(boat.NearBoatTiles.Count, originBoat.NearBoatTiles.Count);
+            Assert.AreNotEqual(boat.TilesUsed.Count, originTilesUsed.Count);
+            Assert.AreNotEqual(boat.NearBoatTiles.Count, originNearTile.Count);
         }
         #endregion UpdateBoatProp()
 

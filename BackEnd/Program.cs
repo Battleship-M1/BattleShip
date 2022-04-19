@@ -4,6 +4,7 @@ namespace BackEnd
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
             Boat bo = new Boat(1, new Tile(2, 2));

@@ -6,7 +6,7 @@ namespace BackEnd.Test
     public class GameTester
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Shoot()
         {
         }
     }

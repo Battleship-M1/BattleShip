@@ -147,7 +147,7 @@ namespace BackEnd.Test
         public void Clone_DifferentBoat_CheckResult()
         {
             MethodInfo methodInfo = typeof(Boat).GetMethod("Clone", BindingFlags.NonPublic | BindingFlags.Instance);
-            Boat cloned = null;
+            Boat cloned = new Boat(2, new Tile(2,6));
             object[] parameters = {b, cloned};
             cloned = (Boat)methodInfo.Invoke(b, parameters);
             foreach(var prop in b.GetType().GetProperties())
@@ -187,10 +187,66 @@ namespace BackEnd.Test
         {
             Assert.IsTrue(boat.UpdateBoatProp(boat.Length));
         }
-        #endregion UpdateBoatProp(int)
 
-        // UpdateBoatProp(int)
-        // UpdateBoatProp(Alignement)
+        [TestMethod]
+        public void UpdateBoatProp_NewLength_ThenTrueAndLengthModified()
+        {
+            int originLength = boat.Length;
+            Assert.IsTrue(boat.UpdateBoatProp(boat.Length + 1));
+            Assert.AreNotEqual(originLength, boat.Length);
+        }
+
+        [TestMethod]
+        public void UpdateBoatProp_IncorrectLength_ThenTrueAndLengthUnmodify()
+        {
+            int originLength = boat.Length;
+            Assert.IsTrue(boat.UpdateBoatProp(-1));
+            Assert.AreEqual(originLength, boat.Length);
+        }
+
+        [TestMethod]
+        public void UpdateBoatProp_NewTopLeft_ThenTrueAndTopLeftModified()
+        {
+            Tile originTopLeft = boat.topLeft;
+            Assert.IsTrue(boat.UpdateBoatProp(new Tile(originTopLeft.X, originTopLeft.Y + 1)));
+            Assert.AreNotEqual(originTopLeft.Y, boat.topLeft.Y);
+        }
+
+        [TestMethod]
+        public void UpdateBoatProp_IncorrectTopLeft_ThenTrueAndTopLeftUnmodified()
+        {
+            Tile originTopLeft = boat.topLeft;
+            Assert.IsTrue(boat.UpdateBoatProp(new Tile(originTopLeft.X,-1)));
+            Assert.AreEqual(originTopLeft.Y,boat.topLeft.Y);
+        }
+
+        [TestMethod]
+        public void UpdateBoatProp_NewAlignement_ThenTrueAndAlignementModified()
+        {
+            boat.Alignement = Alignement.VERTICAL;
+            Alignement originAli = boat.Alignement;
+            Assert.IsTrue(boat.UpdateBoatProp(Alignement.HORIZONTAL));
+            Assert.AreNotEqual(Alignement.HORIZONTAL, originAli);
+        }
+
+        [TestMethod]
+        public void UpdateBoatProp_IncorrectAlignement_ThenTrueAndAlignementUnmodified()
+        {
+            boat.Alignement = Alignement.VERTICAL;
+            Alignement originAli = boat.Alignement;
+            Assert.IsTrue(boat.UpdateBoatProp(Alignement.NONE));
+            Assert.AreEqual(originAli, Alignement.VERTICAL);
+        }
+
+        [TestMethod]
+        public void UpdateBoatProp_OnChange_UpdateTilesList()
+        {
+            Boat originBoat = boat;
+            boat.UpdateBoatProp(boat.Length + 1);
+            Assert.AreNotEqual(boat.TilesUsed.Count, originBoat.TilesUsed.Count);
+            Assert.AreNotEqual(boat.NearBoatTiles.Count, originBoat.NearBoatTiles.Count);
+        }
+        #endregion UpdateBoatProp()
 
         #endregion Private Methods
     }

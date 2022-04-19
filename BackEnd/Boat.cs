@@ -167,7 +167,7 @@ namespace BackEnd
         {
             Clone(this, WorkingBoat);
             WorkingBoat.Length = newLength;
-            if (newLength == -1) { WorkingBoat.Length = this.Length; }
+            if (newLength >= -1) { WorkingBoat.Length = this.Length; }
             if ((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
             {
                 BoatStates.Add(Clone(this, new Boat()));
@@ -201,7 +201,7 @@ namespace BackEnd
         {
             Clone(this, WorkingBoat);
             WorkingBoat.topLeft = newTopLeft;
-            if (newTopLeft == null) { WorkingBoat.topLeft = this.topLeft; }
+            if (newTopLeft == null || newTopLeft.X <=-1 || newTopLeft.Y <= -1) { WorkingBoat.topLeft = this.topLeft; }
             if ((TryUpdateTileUsed() && TryUpdateNearBoatTiles()))
             {
                 BoatStates.Add(this);

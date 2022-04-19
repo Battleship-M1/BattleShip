@@ -8,17 +8,15 @@
     List<Boat> boats = gm.GenerateDefaultBoats();
 }
 <div class="mapAndboat">
-    <div class="container">
+    <div id="gameMap">
         @{
             for(int width = 0; width < m.Size; width++)
             {
-                @:<div class="row">
-              for(int height = 0; height < m.Size; height++)
+                for(int height = 0; height < m.Size; height++)
                 {
                     Tile t = m.Tiles[m.Size * height + width];
                     @:<div class="col">@t.X;@t.Y</div>
                 }
-                @:</div>
             }
         }
     </div>
@@ -29,20 +27,15 @@
             {
                 temp++;
                 string id = boat.Name + "_" + temp;
-                <input type="radio" id=@id name="boatSelector" value="@boat.Name">
-                    @:<div class="boatInput">
-                    <label for=@id>@boat.Name</label>
-                    //@Html.DisplayFor(name => boat.Name);
-                    <label for="@id" class="boat">
+                string CSSclassBoat = "boat boat" + temp;
+                <label for=@id>@boat.Name</label>
+                <div for="@id" class="@CSSclassBoat">
                     @{for(int i = 0; i < boat.Length; i++)
                     {
-                        string CSSclass = "boatPart boat"+temp;
-                        <div class="@CSSclass"></div>
+                        <div class="boatPart"></div>
                     }
                     }
-                    </label>
-                    @:</div>
-                @:</input>
+                    </div>
             }
         }
     </div>

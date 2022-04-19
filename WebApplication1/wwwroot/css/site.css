@@ -72,12 +72,15 @@ body {
 
 /* Custom */
 .row {
-    height: 60px;
-    max-width: 480px;
+    height: 65px;
+    max-width: 520px;
 }
-.col{
+.col {
     border: solid;
     background-color: yellow;
+    width: 65px;
+    height: 65px;
+    flex: 8 0 12% !important;
 }
 .spacer {
     padding-bottom: 10px;
@@ -85,33 +88,44 @@ body {
 }
 .boat{
     display: flex;
-    padding-bottom: 10px;
 }
 .boatPart {
     border: solid;
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
 }
 .mapAndboat{
     display: flex;
 }
-.boat1{
+.boat1 {
     background-color: green;
+    width: 130px;
+    height: 65px;
 }
-.boat2{
-    background-color:grey;
+.boat2 {
+    background-color: grey;
+    width: 195px;
+    height: 65px;
 }
-.boat3{
-    background-color:aliceblue;
+.boat3 {
+    background-color: aliceblue;
+    width: 195px;
+    height: 65px;
 }
-.boat4{
-    background-color:mediumpurple;
+.boat4 {
+    background-color: mediumpurple;
+    width: 260px;
+    height: 65px;
 }
-.boat5{
-    background-color:aquamarine;
+.boat5 {
+    background-color: aquamarine;
+    width: 260px;
+    height: 65px;
 }
-.boat6{
-    background-color:orangered;
+.boat6 {
+    background-color: orangered;
+    width: 325px;
+    height: 65px;
 }
 .begin {
     display: flex;
@@ -134,8 +148,7 @@ footer {
     content-visibility: hidden;
 }
 .boatContainer{
-    width: 300px;
-    padding-right: 320px;
+  
 }
 input{
     appearance: none;
@@ -146,4 +159,20 @@ input{
 }
 .boatInput{
     display: flex;
+}
+
+#gameMap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px auto;
+    width: 520px;
+    height: 520px;
+    border: 0 solid black;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#rowGridGame {
+    margin-right: 0; 
+     margin-left: 0;
 }

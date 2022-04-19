@@ -9,7 +9,7 @@ namespace BackEnd
         {
             Boat bo = new Boat(1, new Tile(2, 2));
             bo.Show();
-            if (bo.UpdateBoatProp(2))
+            if (bo.UpdateBoatProp(bo.Length+1))
             {
                 bo.Show();
             }

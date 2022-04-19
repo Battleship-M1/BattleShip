@@ -92,5 +92,10 @@ namespace BackEnd
         {
             return new Tile(-1, -1);
         }
+
+        public string Informations()
+        {
+            return $"X->{X}|Y->{Y}";
+        }
     }
 }

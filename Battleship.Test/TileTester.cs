@@ -39,5 +39,37 @@ namespace Battleship.Test
             Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
         }
         #endregion verifyX
+
+        #region verifyX
+        [TestMethod]
+        public void verifyY_YNegative_ThenFalse()
+        {
+            Tile tile = new Tile() { Y = -10 };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyY", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+        }
+
+        [TestMethod]
+        public void verifyY_YZero_ThenTrue()
+        {
+            Tile tile = new Tile() { Y = 0 };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyY", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+        }
+
+        [TestMethod]
+        public void verifyY_YPositive_ThenTrue()
+        {
+            Tile tile = new Tile() { Y = 10 };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyY", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+        }
+        #endregion verifyY
     }
 }

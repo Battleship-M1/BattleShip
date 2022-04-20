@@ -54,7 +54,7 @@ namespace Battleship
 
         private Boolean verifyLength()
         {
-            throw new NotImplementedException();
+            return Length > 0 && Length <= 5;
         }
 
         private Boolean verifyId()

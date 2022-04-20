@@ -64,7 +64,7 @@ namespace Battleship
 
         private Boolean verifyPlayer()
         {
-            throw new NotImplementedException();
+            return Owner.Verify();
         }
     }
 }

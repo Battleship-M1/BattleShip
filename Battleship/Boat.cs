@@ -39,7 +39,11 @@ namespace Battleship
 
         private Boolean verifyName()
         {
-            throw new NotImplementedException();
+            if(Name == null)
+            {
+                return false;
+            }
+            return Name.Length > 0;
         }
 
         private Boolean verifyTopLeft()

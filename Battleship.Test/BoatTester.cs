@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
 using System.Collections.Generic;
@@ -277,5 +277,60 @@ namespace Battleship.Test
         }
         #endregion verifyPlayer
 
+        #region Verify
+        [TestMethod]
+        public void Verify_IdWrong_ThenFalse() {
+            Boat b = new Boat() { Id = 0};
+            Assert.IsFalse(b.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_NameWrong_ThenFalse()
+        {
+            Boat b = new Boat() { Name = "" };
+            Assert.IsFalse(b.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_LengthWrong_ThenFalse()
+        {
+            Boat b = new Boat() { Length = 0 };
+            Assert.IsFalse(b.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_TopLeftWrong_ThenFalse()
+        {
+            Boat b = new Boat() { TopLeft = new Tile() { X = 0, Y = -1 } };
+            Assert.IsFalse(b.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_BoatTilesWrong_ThenFalse()
+        {
+            Boat b = new Boat() { BoatTiles = null };
+            Assert.IsFalse(b.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_PlayerWrong_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Id = 0 } };
+            Assert.IsFalse(b.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_AllGood_ThenTrue()
+        {
+            Boat b = new Boat();
+            b.Owner = new Player() { Id = 1,Name = "ee",Boats = new List<Boat>(), Map = new Map() { Boats = new List<Boat>(), Height = 8, Width = 8, Tiles = new List<Tile>() } };
+            b.BoatTiles = new List<Tile>() { new Tile() { X = 1, Y = 2 }, new Tile() { X = 1, Y = 3 } };
+            b.Map = new Map() { Tiles = new List<Tile>(), Width = 8, Height = 8, Boats = new List<Boat>() };
+            b.Length = 2;
+            b.Name = "ee";
+            b.TopLeft = new Tile() { X = 1, Y = 2 };
+            Assert.IsTrue(b.Verify());
+        }
+        #endregion Verify
     }
 }

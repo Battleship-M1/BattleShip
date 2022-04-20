@@ -7,7 +7,36 @@ namespace Battleship.Test
     [TestClass]
     public class TileTester
     {
-        
+        #region Verify
+        [TestMethod]
+        public void Verify_XWrong_YGood_ThenFalse()
+        {
+            Tile tile = new Tile() { X = -10,Y = 3};
+            Assert.IsFalse(tile.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_XGood_YWrong_ThenFalse()
+        {
+            Tile tile = new Tile() { X = 0, Y = -10};
+            Assert.IsFalse(tile.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_XWrong_YWrong_ThenFalse()
+        {
+            Tile tile = new Tile() { X = -9, Y = -45};
+            Assert.IsFalse(tile.Verify());
+        }
+
+        [TestMethod]
+        public void Verify_XGood_YGood_ThenTrue()
+        {
+            Tile tile = new Tile() { X = 5, Y = 17};
+            Assert.IsTrue(tile.Verify());
+        }
+        #endregion Verify
+
         #region verifyX
         [TestMethod]
         public void verifyX_XNegative_ThenFalse()

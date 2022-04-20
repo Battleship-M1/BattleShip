@@ -205,5 +205,77 @@ namespace Battleship.Test
         }
         #endregion verifyBoatTiles
 
+        #region verifyPlayer
+        [TestMethod]
+        public void verifyPlayer_Null_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = null };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyPlayer_IdNegative_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Id = -2} };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyPlayer_IdZero_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Id=0} };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyPlayer_NameNull_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Name = null } };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyPlayer_NameEmpty_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Name = "" } };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyPlayer_MapNull_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Map = null } };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyPlayer_BoatsListNull_ThenFalse()
+        {
+            Boat b = new Boat() { Owner = new Player() { Boats = null } };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+        #endregion verifyPlayer
+
     }
 }

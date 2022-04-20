@@ -10,8 +10,8 @@ namespace Battleship
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public TileState State { get; set; }
-        public ShotState ShotState { get; set; }
+        //public TileState State { get; set; }
+        //public ShotState ShotState { get; set; }
 
         public Tile() { }
         // Factory public Tile(int,int){}

@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Id = -10};
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyId", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyId", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -24,7 +24,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Id = 0};
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyId", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyId", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -34,7 +34,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Id = 4};
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyId", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyId", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -46,9 +46,9 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Name = null };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
-            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
 
         [TestMethod]
@@ -56,9 +56,9 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Name = "" };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
-            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Name = "ee" };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -78,7 +78,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Length = -10 };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -88,7 +88,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Length = 0 };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -98,7 +98,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Length = 1 };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -108,7 +108,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Length = 6};
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyLength", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -120,7 +120,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { TopLeft = new Tile() { X = -10, Y = -1}};
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -130,7 +130,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { TopLeft = new Tile() { X = -2, Y = 4} };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -140,7 +140,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { TopLeft = new Tile() { X = 3, Y = -7} };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -150,7 +150,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { TopLeft = new Tile() { X = 4, Y = 0} };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -162,7 +162,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { BoatTiles = null };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -172,7 +172,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { BoatTiles = new List<Tile>() };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -185,7 +185,7 @@ namespace Battleship.Test
             b.BoatTiles.Add(new Tile() { X = 1, Y = 3 });
             b.Length = 2;
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -199,7 +199,7 @@ namespace Battleship.Test
             b.BoatTiles.Add(new Tile() { X = 1, Y = 3 });
             b.Length = 2;
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -211,7 +211,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = null };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -221,7 +221,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = new Player() { Id = -2} };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -231,7 +231,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = new Player() { Id=0} };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -241,7 +241,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = new Player() { Name = null } };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -251,7 +251,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = new Player() { Name = "" } };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -261,7 +261,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = new Player() { Map = null } };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
@@ -271,7 +271,7 @@ namespace Battleship.Test
         {
             Boat b = new Boat() { Owner = new Player() { Boats = null } };
 
-            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo methodInfo = typeof(Boat).GetMethod("verifyPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ namespace Battleship
         public Tile TopLeft { get; set; }
         public int Length { get; set; }
         public Player Owner { get; set; }
-        public Map map { get; set; }
+        public Map Map { get; set; }
         public Alignement Alignement { get; set; }
         public List<Tile> BoatTiles { get; set; }
         private List<string> errorList;

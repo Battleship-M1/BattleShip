@@ -28,7 +28,7 @@ namespace Battleship
 
         private Boolean verifyY()
         {
-            throw new NotImplementedException();
+            return Y >= 0;
         }
     }
 }

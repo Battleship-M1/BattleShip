@@ -59,7 +59,7 @@ namespace Battleship
 
         private Boolean verifyId()
         {
-            throw new NotImplementedException();
+            return Id > 0;
         }
 
         private Boolean verifyPlayer()

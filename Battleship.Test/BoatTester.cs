@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Battleship.Test
 {
@@ -155,6 +156,54 @@ namespace Battleship.Test
         }
         #endregion verifyTopLeft
 
+        #region verifyBoatTiles
+        [TestMethod]
+        public void verifyBoatTiles_Null_ThenFalse()
+        {
+            Boat b = new Boat() { BoatTiles = null };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyBoatTiles_Empty_ThenFalse()
+        {
+            Boat b = new Boat() { BoatTiles = new List<Tile>() };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyBoatTiles_CountSameAsLengthCountSameAsLengthAndTilesNOTInAlignement_ThenFalse()
+        {
+            Boat b = new Boat() { BoatTiles = new List<Tile>() };
+            b.BoatTiles.Add(new Tile() { X = 1, Y = 2 });
+            b.BoatTiles.Add(new Tile() { X = 1, Y = 3 });
+            b.Length = 2;
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+
+        [TestMethod]
+        public void verifyBoatTiles_CountSameAsLengthAndTilesInAlignement_ThenTrue()
+        {
+            Boat b = new Boat() { BoatTiles = new List<Tile>() };
+            b.BoatTiles.Add(new Tile() { X = 1, Y = 2 });
+            b.BoatTiles.Add(new Tile() { X = 1, Y = 3 });
+            b.Length = 2;
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyBoatTiles", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+        }
+        #endregion verifyBoatTiles
 
     }
 }

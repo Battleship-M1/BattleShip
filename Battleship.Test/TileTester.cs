@@ -55,7 +55,7 @@ namespace Battleship.Test
 
             MethodInfo methodInfo = typeof(Tile).GetMethod("verifyX", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
-            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+            Assert.IsTrue((Boolean)methodInfo.Invoke(tile, parameters));
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace Battleship.Test
 
             MethodInfo methodInfo = typeof(Tile).GetMethod("verifyX", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
-            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+            Assert.IsTrue((Boolean)methodInfo.Invoke(tile, parameters));
         }
         #endregion verifyX
 
@@ -87,7 +87,7 @@ namespace Battleship.Test
 
             MethodInfo methodInfo = typeof(Tile).GetMethod("verifyY", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
-            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+            Assert.IsTrue((Boolean)methodInfo.Invoke(tile, parameters));
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace Battleship.Test
 
             MethodInfo methodInfo = typeof(Tile).GetMethod("verifyY", BindingFlags.NonPublic | BindingFlags.Instance);
             object[] parameters = { };
-            Assert.IsFalse((Boolean)methodInfo.Invoke(tile, parameters));
+            Assert.IsTrue((Boolean)methodInfo.Invoke(tile, parameters));
         }
         #endregion verifyY
     }

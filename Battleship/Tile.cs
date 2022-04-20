@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +23,7 @@ namespace Battleship
 
         private Boolean verifyX()
         {
-            throw new NotImplementedException();
+            return X >= 0;
         }
 
         private Boolean verifyY()

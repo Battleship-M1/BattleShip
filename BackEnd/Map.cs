@@ -14,6 +14,7 @@ namespace BackEnd
         public int Size { get; set; }
         public List<Tile> Tiles { get; set; }
         public int BoatPlaced { get; set; }
+        public List<Boat> Boats { get; set; }
         #endregion Properties
 
         //----------------------------------------------------------------------------------//
@@ -24,6 +25,7 @@ namespace BackEnd
             Size = size;
             Tiles = GenerateMap();
             BoatPlaced = 0;
+            Boats = new List<Boat>();
             ShowMap();
         }
         #endregion Constructors
@@ -51,6 +53,10 @@ namespace BackEnd
         }
         #endregion + GenerateMap() : List<Tile>
 
+        public Boolean IsOnMap(Tile t)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Show the map in console.
@@ -83,9 +89,11 @@ namespace BackEnd
         }
         #endregion + ShowMap() : void
 
-        public Map PlaceBoatOnMap(Boat boat)
+        #region PlaceBoatOnMap
+        public bool PlaceBoatOnMap(Boat boat)
         {
-            Map newMap = this;
+            Map newMap = new Map(0);
+            Clone(this, newMap);
 
             if (AreTilesAvailable(boat.TilesUsed))
             {
@@ -100,9 +108,26 @@ namespace BackEnd
                     if (index > -1) Tiles[index].State = State.IsNearBoat;
                 }
             }
-
-            return newMap;
+            else
+            {
+                return false;
+            }
+            Clone(newMap, this);
+            return true;
         }
+        #endregion
+
+        #region Clone
+        private Map Clone(Map from, Map to)
+        {
+            foreach (var prop in from.GetType().GetProperties())
+            {
+                var val = prop.GetValue(from);
+                prop.SetValue(to, val);
+            }
+            return to;
+        }
+        #endregion Clone
 
         /// <summary>
         /// Verify if boat tiles used are empty.
@@ -148,7 +173,6 @@ namespace BackEnd
             return amount;
         }
         #endregion + GetAmountOfTileInState(State) : int
-    
-        
+
     }
 }

@@ -31,7 +31,7 @@ namespace BackEnd
             NearBoatTiles = GenerateNearBoatTiles(this);
             WorkingBoat = new Boat();
         }
-        private Boat() { }
+        public Boat() { }
         #endregion Constructors
 
         //----------------------------------------------------------------------------------//

@@ -8,5 +8,6 @@ namespace BackEnd
 {
     public class IA
     {
+        public List<Tile> TilesShooted;
     }
 }

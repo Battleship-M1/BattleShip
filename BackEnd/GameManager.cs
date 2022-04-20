@@ -17,6 +17,7 @@ namespace BackEnd
         public List<Boat> BoatList {  get; set; }
         public bool IsMultiplayer { get; set; }
         public IA IA { get; set; }
+        private Boat PreBoat = new Boat();
         #endregion Properties
 
         //----------------------------------------------------------------------------------//
@@ -261,6 +262,13 @@ namespace BackEnd
                 if(GetTileIndex(tile.X, tile.Y, t2) == -1) { return false; }
             }
             return t1.Count == t2.Count;
+        }
+
+        public bool PreBoatLength(int length)
+        {
+            if (length <= 0) { return false; }
+            PreBoat.Length = length;
+            return true;
         }
     }
 }

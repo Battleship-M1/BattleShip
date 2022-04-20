@@ -6,6 +6,7 @@ namespace BackEnd.Test
     [TestClass]
     public class MapTester
     {
+        BoatFactory boatFactory = new BoatFactory();
         Map map = new Map(8);
         Map emptyMap = new Map(0);
         Boat boat = new Boat(2, new Tile(3, 3));
@@ -74,5 +75,23 @@ namespace BackEnd.Test
             Assert.AreEqual(map.GetAmountOfTileInState(State.IsBoat), RESULT_WANTED);
         }
         #endregion GetAmountOfTileInState
+
+        #region PlaceBoatOnMap()
+        [TestMethod]
+        public void PlaceBoatOnMap_OnFreeTiles_ThenTrue()
+        {
+            Map m = new Map(8);
+            Boat b = boatFactory.Test();
+            Assert.IsTrue(m.PlaceBoatOnMap(b));
+        }
+        [TestMethod]
+        public void PlaceBoatOnMap_OnUsedTiles_ThenFalse()
+        {
+            Map m = new Map(8);
+            Boat b = boatFactory.Test();
+            m.PlaceBoatOnMap(b);
+            Assert.IsFalse(m.PlaceBoatOnMap(b));
+        }
+        #endregion PlaceBoatOnMap()
     }
 }

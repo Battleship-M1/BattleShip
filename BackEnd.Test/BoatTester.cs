@@ -9,8 +9,7 @@ namespace BackEnd.Test
     [TestClass]
     public class BoatTester
     {
-        Boat b = new Boat(0, new Tile(1,1));
-        Boat boat = new Boat(1, new Tile(2,2));
+        BoatFactory factory = new BoatFactory();
         Map blankMap = new Map(0);
         Map okMap = new Map(8);
         int okLength = 2;
@@ -24,6 +23,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void Boat_AffectName_CheckResult()
         {
+            Boat b = factory.Test();
             b.Length = 2;
             Assert.AreEqual("long2", b.AffectName());
         }
@@ -33,24 +33,28 @@ namespace BackEnd.Test
         [TestMethod]
         public void Boat_IsOnMap_WithBlankGrid_ThenFalse()
         {
+            Boat b = factory.Test();
             Assert.IsFalse(b.IsOnMap(blankMap, okTile, okLength, Alignement.HORIZONTAL));
         }
 
         [TestMethod]
         public void Boat_IsOnMap_WithNOKTopLeft_ThenFalse()
         {
+            Boat b = factory.Test();
             Assert.IsFalse(b.IsOnMap(okMap, failTile, okLength, Alignement.HORIZONTAL));
         }
 
         [TestMethod]
         public void Boat_IsOnMap_WithNegativeLength_ThenFalse()
         {
+            Boat b = factory.Test();
             Assert.IsFalse(b.IsOnMap(okMap, okTile, failLength, Alignement.HORIZONTAL));
         }
 
         [TestMethod]
         public void Boat_IsOnMap_WithPositiveLengthAndOKTopLeft_ThenTrue()
         {
+            Boat b = factory.Test();
             Assert.IsTrue(b.IsOnMap(okMap, okTile, okLength, Alignement.HORIZONTAL));
         }
         #endregion IsOnMap
@@ -59,24 +63,28 @@ namespace BackEnd.Test
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithNegativeOrZeroLength_ThenNull()
         {
+            Boat b = factory.Test();
             Assert.IsNull(b.GenerateTilesUsed(okTile, -1, Alignement.HORIZONTAL));
         }
 
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithNOKTopLeft_ThenNull()
         {
+            Boat b = factory.Test();
             Assert.IsNull(b.GenerateTilesUsed(failTile, 2, Alignement.HORIZONTAL));
         }
 
         [TestMethod]
         public void Boat_GenerateTilesUsed_WithOKTopLeft3Length_ThenListCount3()
         {
+            Boat b = factory.Test();
             Assert.AreEqual(3, b.GenerateTilesUsed(okTile, 3, Alignement.HORIZONTAL).Count);
         }
 
         [TestMethod]
         public void Boat_GenerateTilesUsed_Horizontal_CheckResult()
         {
+            Boat b = factory.Test();
             Assert.AreEqual(3, b.GenerateTilesUsed(new Tile(3, 4), 3, Alignement.HORIZONTAL)[0].X);
             Assert.AreEqual(4, b.GenerateTilesUsed(new Tile(3, 4), 3, Alignement.HORIZONTAL)[0].Y);
 
@@ -90,6 +98,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void Boat_GenerateTilesUsed_Vertical_CheckResult()
         {
+            Boat b = factory.Test();
             Assert.AreEqual(3, b.GenerateTilesUsed(new Tile(3, 4), 3, Alignement.VERTICAL)[0].X);
             Assert.AreEqual(4, b.GenerateTilesUsed(new Tile(3, 4), 3, Alignement.VERTICAL)[0].Y);
 
@@ -105,6 +114,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void GenerateNearBoatTiles_IfTilesUsedNull_ThenEmptyList()
         {
+            Boat b = factory.Test();
             b.TilesUsed = null;
             Assert.AreEqual(0, b.GenerateNearBoatTiles().Count);
         }
@@ -112,6 +122,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void GenerateNearBoatTiles_IfTilesUsedEmpty_ThenEmptyList()
         {
+            Boat b = factory.Test();
             b.TilesUsed = new List<Tile>();
             Assert.AreEqual(0, b.GenerateNearBoatTiles().Count);
         }
@@ -142,6 +153,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void ApplyLastChange_ThenTrue()
         {
+            Boat boat = factory.Test();
             int originLength = boat.Length;
             boat.UpdateBoatProp(boat.Length + 1);
             Assert.AreEqual(boat.ApplyLastState(), true);
@@ -157,6 +169,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void Clone_DifferentBoat_CheckResult()
         {
+            Boat b = factory.Test();
             MethodInfo methodInfo = typeof(Boat).GetMethod("Clone", BindingFlags.NonPublic | BindingFlags.Instance);
             Boat cloned = new Boat(2, new Tile(2,6));
             object[] parameters = {b, cloned};
@@ -170,6 +183,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void Clone_SameBoat_CheckResult()
         {
+            Boat b = factory.Test();
             MethodInfo methodInfo = typeof(Boat).GetMethod("Clone", BindingFlags.NonPublic | BindingFlags.Instance);
             Boat cloned = null;
             object[] parameters = { b, b };
@@ -186,22 +200,26 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_IncreaseLength_ThenTrue()
         {
+            Boat boat = factory.Test();
             Assert.IsTrue(boat.UpdateBoatProp(boat.Length++));
         }
         [TestMethod]
         public void UpdateBoatProp_DecreaseLength_ThenTrue()
         {
+            Boat boat = factory.Test();
             Assert.IsTrue(boat.UpdateBoatProp(boat.Length--));
         }
         [TestMethod]
         public void UpdateBoatProp_SameLength_ThenTrue()
         {
+            Boat boat = factory.Test();
             Assert.IsTrue(boat.UpdateBoatProp(boat.Length));
         }
 
         [TestMethod]
         public void UpdateBoatProp_NewLength_ThenTrueAndLengthModified()
         {
+            Boat boat = factory.Test();
             int originLength = boat.Length;
             boat.Show();
             boat.UpdateBoatProp(originLength + 1);
@@ -212,6 +230,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_IncorrectLength_ThenTrueAndLengthUnmodify()
         {
+            Boat boat = factory.Test();
             int originLength = boat.Length;
             Assert.IsTrue(boat.UpdateBoatProp(-1));
             Assert.AreEqual(originLength, boat.Length);
@@ -220,6 +239,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_NewTopLeft_ThenTrueAndTopLeftModified()
         {
+            Boat boat = factory.Test();
             Tile originTopLeft = boat.topLeft;
             boat.Show();
             Assert.IsTrue(boat.UpdateBoatProp(new Tile(originTopLeft.X, originTopLeft.Y + 1)));
@@ -229,6 +249,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_IncorrectTopLeft_ThenTrueAndTopLeftUnmodified()
         {
+            Boat boat = factory.Test();
             Tile originTopLeft = boat.topLeft;
             Assert.IsTrue(boat.UpdateBoatProp(new Tile(originTopLeft.X,-1)));
             Assert.AreEqual(originTopLeft.Y,boat.topLeft.Y);
@@ -237,6 +258,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_NewAlignement_ThenTrueAndAlignementModified()
         {
+            Boat boat = factory.Test();
             boat.Alignement = Alignement.VERTICAL;
             Alignement originAli = boat.Alignement;
             Assert.IsTrue(boat.UpdateBoatProp(Alignement.HORIZONTAL));
@@ -246,6 +268,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_IncorrectAlignement_ThenTrueAndAlignementUnmodified()
         {
+            Boat boat = factory.Test();
             boat.Alignement = Alignement.VERTICAL;
             Alignement originAli = boat.Alignement;
             Assert.IsTrue(boat.UpdateBoatProp(Alignement.NONE));
@@ -255,6 +278,7 @@ namespace BackEnd.Test
         [TestMethod]
         public void UpdateBoatProp_OnChange_UpdateTilesList()
         {
+            Boat boat = factory.Test();
             var originTilesUsed = boat.TilesUsed;
             var originNearTile = boat.NearBoatTiles;
             boat.UpdateBoatProp(boat.Length + 1);

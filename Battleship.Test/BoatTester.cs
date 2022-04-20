@@ -38,5 +38,37 @@ namespace Battleship.Test
             Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
         }
         #endregion verifyId
+
+        #region verifyName
+        [TestMethod]
+        public void verifyName_Null_ThenFalse()
+        {
+            Boat b = new Boat() { Name = null };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyName_Empty_ThenFalse()
+        {
+            Boat b = new Boat() { Name = "" };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyName_NotEmpty_ThenTrue()
+        {
+            Boat b = new Boat() { Name = "ee" };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyName", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+        }
+        #endregion verifyName
     }
 }

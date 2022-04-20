@@ -33,7 +33,8 @@ namespace Battleship
         }
 
         private Boolean verifyBoatTiles() {
-            throw new NotImplementedException();
+            if(BoatTiles == null) { return false; }
+            return BoatTiles.Count == Length;
         }
 
         private Boolean verifyName()

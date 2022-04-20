@@ -112,5 +112,49 @@ namespace Battleship.Test
             Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
         }
         #endregion verifyLength
+
+        #region verifyTopLeft
+        [TestMethod]
+        public void verifyTopLeft_XWrong_YWrong_ThenFalse()
+        {
+            Boat b = new Boat() { TopLeft = new Tile() { X = -10, Y = -1}};
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyTopLeft_XWrong_YGood_ThenFalse()
+        {
+            Boat b = new Boat() { TopLeft = new Tile() { X = -2, Y = 4} };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyTopLeft_XGood_YWrong_ThenFalse()
+        {
+            Boat b = new Boat() { TopLeft = new Tile() { X = 3, Y = -7} };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsFalse((Boolean)methodInfo.Invoke(b, parameters));
+        }
+
+        [TestMethod]
+        public void verifyTopLeft_XGood_YGood_ThenTrue()
+        {
+            Boat b = new Boat() { TopLeft = new Tile() { X = 4, Y = 0} };
+
+            MethodInfo methodInfo = typeof(Tile).GetMethod("verifyTopLeft", BindingFlags.NonPublic | BindingFlags.Instance);
+            object[] parameters = { };
+            Assert.IsTrue((Boolean)methodInfo.Invoke(b, parameters));
+        }
+        #endregion verifyTopLeft
+
+
     }
 }

@@ -14,6 +14,7 @@ namespace Battleship
         public int Length { get; set; }
         public Player Owner { get; set; }
         public Map map { get; set; }
+        public Alignement Alignement { get; set; }
         public List<Tile> BoatTiles { get; set; }
         private List<string> errorList;
 

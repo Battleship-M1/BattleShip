@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,8 +28,8 @@ namespace Battleship
             throw new NotImplementedException();
         }
 
-        public Boolean Verify() { 
-            throw new NotImplementedException();
+        public Boolean Verify() {
+            return verifyBoatTiles() && verifyId() && verifyLength() && verifyName() && verifyPlayer() && verifyTopLeft();
         }
 
         private Boolean verifyBoatTiles() {
